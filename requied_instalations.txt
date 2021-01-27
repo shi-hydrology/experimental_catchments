@@ -2,3 +2,4 @@ npm install @material-ui/core
 npm i react-router-dom
 npm i react-leaflet
 npm i leaflet
+npm i @material-ui/icons
