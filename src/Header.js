@@ -5,37 +5,47 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
-import colors from './palette.js' 
+import colors from './palette.js'
+import {frontend_settings} from './server_settings.js' 
 
 export default function Header(props) {
 
   const [state, setState] = React.useState({
-    swampListOpen: false
+    listOpen: false
   });
 
-  const setSwampListOpen=(event)=>{
-    setState({ ...state, swampListOpen: true });
-  }
-
-  const setSwampListClose=(event)=>{
-    setState({ ...state, swampListOpen: false });
-  }
-
-  const returnSwampItems=()=>{
-    if (state.swampListOpen==true){
-      return <div style={{height: '100px', width: '100px', background:'red'}}>
-        <p>im alive</p>
-      </div>
+  const closeList=(event, index)=>{
+    if (index==0){
+      window.open('http://'+ frontend_settings.host+ ':'+frontend_settings.port+'/lammin_suo', '_blank');
     }
+    if (index==1){
+      window.open('http://'+ frontend_settings.host+ ':'+frontend_settings.port+'/belorussian', '_blank');
+    }
+    setState({ ...state, listOpen: false });
   }
+
+  const openList=(event)=>{
+    setState({ ...state, listOpen: true });
+  }
+
+  const mainWindowOpen=()=>{
+    window.open('http://'+ frontend_settings.host+ ':'+frontend_settings.port, "_self");
+  } 
+
+  const options = [
+    'Озеро Ламмин-Суо',
+    'Белорусское болото',
+  ];
 
   return (
     <div>
       <AppBar position="static" style={{flexGrow: 1, background: colors.blue2, color: '#ffffff', height: '7vh', padding: 0}} >
         <Toolbar style={{height:'7vh', minHeight:0}}>
 
-        <ButtonBase onClick={()=>console.log('click')}>
+        <ButtonBase onClick={()=>mainWindowOpen()}>
             <img src='https://raw.githubusercontent.com/ChrisLisbon/RDE_SHI_frontend/master/src/shi_round.png' alt="logo"  style={{height: '6vh', width: '6vh', margin: '0.5 0'}}/>
         </ButtonBase>
             
@@ -49,9 +59,25 @@ export default function Header(props) {
           </div>
 
           <div style={{flexGrow: 3}}>
-            <Button wrapped color="inherit" endIcon={<ExpandMoreIcon/>} >
+            <Button wrapped color="inherit" endIcon={<ExpandMoreIcon/>} onClick={(event)=>openList(event)}>
               <span style={{ fontSize: '1.7vh' }}>Водосборы</span>            
             </Button>
+
+            <Menu style={{margin:'4vh 0 0 35vw'}}
+              keepMounted
+              open={state.listOpen}
+              onClose={closeList}
+            >              
+              {options.map((option, index) => (
+                <MenuItem
+                  key={option}
+                  onClick={(event) => closeList(event, index)}
+                >
+                  {option}
+                </MenuItem>
+              ))}
+            </Menu>
+
             <Button wrapped color="inherit" href='https://docs.google.com/document/d/1ypX0_GwKSKtDZJIolB54_Xmwn0wxbII0zEQMkpTd-HU/edit#heading=h.khx6aa9k6ye4' target="_blank">
               <span style={{ fontSize: '1.7vh' }}>Документация</span>            
             </Button>
