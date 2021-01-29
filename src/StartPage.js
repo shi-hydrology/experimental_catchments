@@ -13,14 +13,14 @@ export default class StartPage extends Component{
 			
 			<div>
 				<Header/>
-				<Paper style={{height: 'auto', width: '80vw', margin: 'auto', opacity: 0.9, padding: '50px'}}>
+				<Paper style={{height: 'auto', width: '80vw', margin: 'auto', opacity: 0.8, padding: '50px'}}>
 					<Typography variant="h4">
 					<br/>						
 					Проект - Экспериментальные водосборы 
 					</Typography>
 					<Typography variant="body1" component="p">
 					<br/>						
-					Длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинныйдлинныйдлинныйдлинныйдлинныйдлинныйдлинныйдлинныйтекст о том зачем это все вообще нужно 
+					Длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинный длинныйдлинный длинный текст о том зачем это все вообще нужно 
 					</Typography>
 					<br/>
 					<SwampCards/>
