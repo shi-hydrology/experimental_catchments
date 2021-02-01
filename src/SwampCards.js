@@ -23,7 +23,8 @@ const useStyles = makeStyles({
     const classes = useStyles();
   
     return (
-      <div>
+      <div style={{maxWidth: '100%', overflowX: 'scroll'}}>
+        <div style={{width: '2160px', height:'200px'}}>
         <Link style={{display:'inline-block', padding: '0 5px'}} underline='none' component={RouterLink} to={'/lammin_suo'} target='_blank'>
         <Card className={classes.root}>
             <CardHeader title="Болото Ламмин-Суо" style={{height: '12px'}}/>
@@ -35,7 +36,7 @@ const useStyles = makeStyles({
             
         </Card>
         </Link>
-        <Link style={{display:'inline-block'}} underline='none' component={RouterLink} to={'/belorussian'} target='_blank'>
+        <Link style={{display:'inline-block', padding: '0 5px'}} underline='none' component={RouterLink} to={'/belorussian'} target='_blank'>
         <Card className={classes.root}>
             <CardHeader title="Белорусское озеро" style={{height: '12px'}}/>
             <CardMedia
@@ -46,6 +47,51 @@ const useStyles = makeStyles({
             
         </Card>
         </Link>
+        <Link style={{display:'inline-block', padding: '0 5px'}} underline='none' component={RouterLink} to={'/belorussian'} target='_blank'>
+        <Card className={classes.root}>
+            <CardHeader title="Белорусское озеро" style={{height: '12px'}}/>
+            <CardMedia
+              className = {classes.media}
+              image = {b_img}
+              title = "Белорусское озеро"
+            />
+            
+        </Card>
+        </Link>
+        <Link style={{display:'inline-block', padding: '0 5px'}} underline='none' component={RouterLink} to={'/belorussian'} target='_blank'>
+        <Card className={classes.root}>
+            <CardHeader title="Белорусское озеро" style={{height: '12px'}}/>
+            <CardMedia
+              className = {classes.media}
+              image = {b_img}
+              title = "Белорусское озеро"
+            />
+            
+        </Card>
+        </Link>
+        <Link style={{display:'inline-block', padding: '0 5px'}} underline='none' component={RouterLink} to={'/belorussian'} target='_blank'>
+        <Card className={classes.root}>
+            <CardHeader title="Белорусское озеро" style={{height: '12px'}}/>
+            <CardMedia
+              className = {classes.media}
+              image = {b_img}
+              title = "Белорусское озеро"
+            />
+            
+        </Card>
+        </Link>
+        <Link style={{display:'inline-block', padding: '0 5px'}} underline='none' component={RouterLink} to={'/belorussian'} target='_blank'>
+        <Card className={classes.root}>
+            <CardHeader title="Белорусское озеро" style={{height: '12px'}}/>
+            <CardMedia
+              className = {classes.media}
+              image = {b_img}
+              title = "Белорусское озеро"
+            />
+            
+        </Card>
+        </Link>
+        </div>
       </div>
     );
   }

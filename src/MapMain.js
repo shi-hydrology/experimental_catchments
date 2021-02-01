@@ -8,7 +8,6 @@ import { MapContainer, TileLayer, Marker, Tooltip} from 'react-leaflet';
 import {frontend_settings} from './server_settings.js' 
 
 import icon from './images/loc1.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 let DefaultIcon = L.icon({
     iconUrl: icon,
