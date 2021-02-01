@@ -9,12 +9,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import colors from './palette.js'
+import img from "./images/shi_round.png";
 import {frontend_settings} from './server_settings.js' 
 
 export default function Header(props) {
 
   const [state, setState] = React.useState({
-    listOpen: false
+    anchorEl: null
   });
 
   const closeList=(event, index)=>{
@@ -24,11 +25,11 @@ export default function Header(props) {
     if (index==1){
       window.open('http://'+ frontend_settings.host+ ':'+frontend_settings.port+'/belorussian', '_blank');
     }
-    setState({ ...state, listOpen: false });
+    setState({ ...state, anchorEl: null });
   }
 
   const openList=(event)=>{
-    setState({ ...state, listOpen: true });
+    setState({ ...state, anchorEl: event.currentTarget });
   }
 
   const mainWindowOpen=()=>{
@@ -46,7 +47,7 @@ export default function Header(props) {
         <Toolbar style={{height:'7vh', minHeight:0}}>
 
         <ButtonBase onClick={()=>mainWindowOpen()}>
-            <img src='https://raw.githubusercontent.com/ChrisLisbon/RDE_SHI_frontend/master/src/shi_round.png' alt="logo"  style={{height: '6vh', width: '6vh', margin: '0.5 0'}}/>
+            <img src={img} alt="logo"  style={{height: '6vh', width: '6vh', margin: '0.5 0'}}/>
         </ButtonBase>
             
           <div style={{flexGrow: 1}}>
@@ -63,9 +64,10 @@ export default function Header(props) {
               <span style={{ fontSize: '1.7vh' }}>Водосборы</span>            
             </Button>
 
-            <Menu style={{margin:'4vh 0 0 35vw'}}
+            <Menu style={{margin:'4vh 0 0'}}
               keepMounted
-              open={state.listOpen}
+              anchorEl={state.anchorEl}
+              open={Boolean(state.anchorEl)}
               onClose={closeList}
             >              
               {options.map((option, index) => (
