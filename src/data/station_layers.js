@@ -1,0 +1,10 @@
+var station_layers=[{'type_name':'meteo',
+                     'rus_name':'Метеостанции',
+                     'type_style':{'color': 'red'}},
+                    {'type_name':'precipitation_gauge',
+                     'rus_name':'Осадкомер',
+                     'type_style':{'color': 'red'}},
+                    {'type_name':'well',
+                     'rus_name':'Скважина',
+                     'type_style':{'color': 'red'}}, 
+]

@@ -5,10 +5,15 @@ import * as L from 'leaflet';
 
 import Header from './Header.js'
 import LeftPanel from './LeftPanel.js'
+import stations from './data/stations.js'
 
 export default class LamminSuoPage extends Component{
+
+	
+
 	render(){
 		document.title='Болото Ламмин-Суо'
+		console.log(stations)
 		return(				
 			<div>
 				<Header/>
