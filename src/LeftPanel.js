@@ -8,6 +8,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+import LayersCheckbox from './LayersCheckbox.js'
+
+import station_layers from './data/station_layers.js'
 
 const drawerWidth = 300;
 
@@ -48,18 +51,31 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function LeftPanel() {
+export default function LeftPanel(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [state, setState] = React.useState({
+    open: true,
+  });
 
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setState({ ...state, open: true});
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setState({ ...state, open: false});
   };
+
+  const returnCheckboxes=()=>{
+    var active_layers=[]
+    for (var layer in station_layers){
+      var rus_name=station_layers[layer].rus_name
+      var type_name=station_layers[layer].type_name
+      active_layers.push(<LayersCheckbox name={rus_name} type_name={type_name} setCheckedLayers={(type_name, value)=>props.setCheckedLayers(type_name, value)}/>)
+    }
+      return active_layers
+    }
+  
 
   return (
     <div className={classes.root}>      
@@ -68,7 +84,7 @@ export default function LeftPanel() {
             color="inherit"
             onClick={()=>handleDrawerOpen()}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, state.open && classes.hide)}
         >
         <ChevronRightIcon />
         </IconButton>
@@ -77,7 +93,7 @@ export default function LeftPanel() {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={state.open}
         classes={{
           paper: classes.drawerPaper,
         }}
@@ -93,7 +109,7 @@ export default function LeftPanel() {
         </Tooltip>
       </div>
       <Divider />
-        
+        {returnCheckboxes()}
       </Drawer>
     </div>
   );

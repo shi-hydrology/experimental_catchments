@@ -1,28 +1,52 @@
 import React, {Component} from 'react';
-import { MapContainer, TileLayer, Marker, Tooltip} from 'react-leaflet';
-import * as L from 'leaflet';
 
+
+import stations from './data/stations.js'
+import station_layers from './data/station_layers.js'
 
 import Header from './Header.js'
 import LeftPanel from './LeftPanel.js'
-import stations from './data/stations.js'
+import LamminSuoMap from './LamminSuoMap.js'
 
 export default class LamminSuoPage extends Component{
-
+	constructor(props){
+		super(props)		
+		this.state = {
+			layers: null,
+			layers_parse: false,
+			active_layers: {},
+		}	
+	}
 	
+	setCheckedLayers=(type_name, value)=>{
+		var new_active_layers=this.state.active_layers
+		new_active_layers[type_name]=value
+		this.setState(() => {return {active_layers: new_active_layers}})
+	}
+
+	parseStationsByType=(stations, station_layers)=>{
+		var layersDict={}
+		for (var layer in station_layers){
+		  layersDict[station_layers[layer].type_name]=[]
+		  for (var feature in stations.features){
+			if (station_layers[layer].type_name==stations.features[feature].properties.type){
+			  layersDict[station_layers[layer].type_name].push(stations.features[feature].properties)
+			}
+		  }
+		}
+		this.setState(() => {return {layers: layersDict, layers_parse: true}})
+	  }
 
 	render(){
 		document.title='Болото Ламмин-Суо'
-		console.log(stations)
+		if (this.state.layers_parse==false){
+			this.parseStationsByType(stations, station_layers)
+		}
 		return(				
 			<div>
 				<Header/>
-				<MapContainer style={{height: '93vh', width: '100%', margin:'0',  display: 'block', zIndex: 0, position: 'absolute'}}  center={[60.24077, 29.81952]} zoom={14}>
-                    <TileLayer
-                    attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                </MapContainer>
-				<LeftPanel/>
+				<LamminSuoMap layers={this.state.layers} active_layers={this.state.active_layers}/>
+				<LeftPanel layers={this.state.layers} setCheckedLayers={(type_name, value)=>this.setCheckedLayers(type_name, value)}/>
 			</div>
 			)
 	}
