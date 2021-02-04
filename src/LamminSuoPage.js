@@ -30,6 +30,7 @@ export default class LamminSuoPage extends Component{
 		  layersDict[station_layers[layer].type_name]=[]
 		  for (var feature in stations.features){
 			if (station_layers[layer].type_name==stations.features[feature].properties.type){
+			  stations.features[feature].properties['geometry']=stations.features[feature].geometry
 			  layersDict[station_layers[layer].type_name].push(stations.features[feature].properties)
 			}
 		  }
