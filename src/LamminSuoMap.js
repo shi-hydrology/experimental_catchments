@@ -3,6 +3,9 @@ import { MapContainer, TileLayer, Marker, Tooltip, Popup} from 'react-leaflet';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 
+import TimeSeriesDialog from './TimeSeriesDialog.js'
+import TimeSeriesPaper from './TimeSeriesPaper.js'
+
 import station_layers from './data/station_layers.js'
 
 class LamminSuoMap extends Component{
@@ -10,14 +13,29 @@ class LamminSuoMap extends Component{
 		super(props)
 		
 		this.state = {
+            dialogs_list: null
 	    }
+    }
+    
+    returnDialogs=()=>{
+        var els_list=this.state.dialogs_list
+        console.log(els_list)
+        return els_list
+    }
+
+    addDialogToStateList=(main_info)=>{
+        var title = main_info.name
+        var description = main_info.description
+        var dialog_element = (<TimeSeriesDialog title={title} open={true} desctiption={description}/>)
+        
+        this.setState(() => {return {dialogs_list: dialog_element}})
+        console.log(this.state)
     }
 
     returnMarkers=()=>{
         var markers = []
         var active_layers = this.props.active_layers		
         var layers = this.props.layers
-        console.log(layers)
         for(var n in Object.keys(active_layers)){
             var type = Object.keys(active_layers)[n]
             if (active_layers[type]==true){
@@ -42,7 +60,7 @@ class LamminSuoMap extends Component{
                                                 {main_info.description}                                                
                                                 <div style={{width: '100%', justifyContent:'center', textAlign:'center'}}>
                                                 <br/>
-                                                    <Button size="small" variant="contained" color="inherit" onClick={()=>console.log('cdfsxcdf')}>
+                                                    <Button size="small" variant="contained" color="inherit" onClick={()=>{this.addDialogToStateList(main_info)}}>
                                                     Показать временные ряды            
                                                     </Button>
                                                 </div>
@@ -65,6 +83,8 @@ class LamminSuoMap extends Component{
                     />
                 {this.returnMarkers()}
                 </MapContainer>  
+                {this.returnDialogs()}
+                <TimeSeriesPaper/>
             </div>
         )
     }
