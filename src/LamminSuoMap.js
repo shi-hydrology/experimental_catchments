@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import { MapContainer, TileLayer, Marker, Tooltip} from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Tooltip, Popup} from 'react-leaflet';
 import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+
+import station_layers from './data/station_layers.js'
 
 class LamminSuoMap extends Component{
 	constructor(props){
@@ -14,20 +17,36 @@ class LamminSuoMap extends Component{
         var markers = []
         var active_layers = this.props.active_layers		
         var layers = this.props.layers
-        console.log(active_layers)
-		console.log(layers)
+        console.log(layers)
         for(var n in Object.keys(active_layers)){
             var type = Object.keys(active_layers)[n]
             if (active_layers[type]==true){
+                for (var t in station_layers){
+                    if (station_layers[t].type_name==type){
+                        var custom_icon=station_layers[t].type_icon
+                    }
+                }
                 for (var m in layers[type]){
                     var main_info=layers[type][m]
-                    console.log(main_info)
                     var coordinates=[main_info.geometry.coordinates[0][1], main_info.geometry.coordinates[0][0]]
                     if (main_info!=null && main_info!=undefined){
-                        var one_marker= (<Marker position={coordinates}>
-                                            <Tooltip placement="top" >
-                                                {main_info.name}<br/><Divider />
+                        var one_marker= (<Marker icon={custom_icon} position={coordinates}>
+                                            <Tooltip direction="right">
+                                                <span>{main_info.name}</span>
                                             </Tooltip>
+                                            <Popup >
+                                                <span><b>{main_info.name}</b></span>
+                                                <br/>                                                
+                                                <Divider />
+                                                <br/>
+                                                {main_info.description}                                                
+                                                <div style={{width: '100%', justifyContent:'center', textAlign:'center'}}>
+                                                <br/>
+                                                    <Button size="small" variant="contained" color="inherit" onClick={()=>console.log('cdfsxcdf')}>
+                                                    Показать временные ряды            
+                                                    </Button>
+                                                </div>
+                                            </Popup>
                                         </Marker>)
                         markers.push(one_marker)
                     }
@@ -45,8 +64,7 @@ class LamminSuoMap extends Component{
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                 {this.returnMarkers()}
-                </MapContainer>
-                
+                </MapContainer>  
             </div>
         )
     }
