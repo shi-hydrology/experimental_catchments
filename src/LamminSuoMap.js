@@ -12,13 +12,61 @@ class LamminSuoMap extends Component{
 		super(props)
 		
 		this.state = {
-            
+            papersList: [],
+            firstLoad: false,
 	    }
     }
     
+    returnTimeSeriesPaper=()=>{
+        var el_list = this.state.papersList.map((el)=>{
+            console.log(el)
+            if (el.value==true){
+                return <TimeSeriesPaper closePaper={(id)=>{this.closePaper(id)}} title={el.name} key={el.id}/>
+            }
+        })
+        return el_list
+    }
 
+    returnLayersPapers=()=>{
+        var layers = this.props.layers
+        if (layers!=undefined && layers!=null){
+            for(var n in Object.keys(layers)){
+                var type = Object.keys(layers)[n]            
+                    for (var m in layers[type]){
+                        var main_info=layers[type][m]
+                        if (main_info!=null && main_info!=undefined){
+                            var id=main_info.id
+                            var flag = this.state.papersList.includes({'id': id, 'name': main_info.name, 'value': false})
+                            console.log(flag)
+                            if (flag==false){
+                                this.state.papersList.push({'id': id, 'name': main_info.name, 'value': false})
+                                this.setState(() => {return {firstLoad: true}})
+                            }
+                        }
+                    }
+            }
+        }
+    }
 
-    returnMarkers=()=>{
+    showPaper=(id)=>{
+        this.state.papersList.forEach((el)=>{
+            if (el.id==id){
+                el.value=true
+            }
+        })
+        this.setState(() => {return {papersList: this.state.papersList}})
+    }
+
+    closePaper=(id)=>{
+        this.state.papersList.forEach((el)=>{
+            if (el.id==id){
+                el.value=false
+            }
+        })
+        this.setState(() => {return {papersList: this.state.papersList}})
+    }
+
+    returnMarkers=()=>{        
         var markers = []
         var active_layers = this.props.active_layers		
         var layers = this.props.layers
@@ -45,8 +93,8 @@ class LamminSuoMap extends Component{
                                                 <br/>
                                                 {main_info.description}                                                
                                                 <div style={{width: '100%', justifyContent:'center', textAlign:'center'}}>
-                                                <br/>
-                                                    <Button size="small" variant="contained" color="inherit" onClick={()=>console.log('fdcvd')}>
+                                                    <br/>
+                                                    <Button size="small" variant="contained" color="inherit" onClick={()=>this.showPaper(main_info.id)}>
                                                     Показать временные ряды            
                                                     </Button>
                                                 </div>
@@ -61,6 +109,9 @@ class LamminSuoMap extends Component{
     }
 
     render(){
+        if (this.state.firstLoad==false){
+            this.returnLayersPapers();         
+        }
     return(
             <div>
                 <MapContainer style={{height: '93vh', width: '100%', margin:'0',  display: 'block', zIndex: 0, position: 'absolute'}}  center={[60.24077, 29.81952]} zoom={14}>
@@ -69,7 +120,7 @@ class LamminSuoMap extends Component{
                     />
                 {this.returnMarkers()}
                 </MapContainer>  
-                <TimeSeriesPaper/>
+                {this.returnTimeSeriesPaper()}
             </div>
         )
     }

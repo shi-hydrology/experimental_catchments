@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
-    height: '50vh', 
     margin: '20vh 0 0 0'
   },
   drawerPaper: {
