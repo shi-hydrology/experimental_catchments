@@ -21,7 +21,7 @@ class LamminSuoMap extends Component{
         var el_list = this.state.papersList.map((el)=>{
             console.log(el)
             if (el.value==true){
-                return <TimeSeriesPaper closePaper={(id)=>{this.closePaper(id)}} title={el.name} key={el.id}/>
+                return <TimeSeriesPaper closePaper={(id)=>{this.closePaper(id)}} title={el.name} description={el.description} id={el.id}/>
             }
         })
         return el_list
@@ -30,25 +30,24 @@ class LamminSuoMap extends Component{
     returnLayersPapers=()=>{
         var layers = this.props.layers
         if (layers!=undefined && layers!=null){
-            for(var n in Object.keys(layers)){
-                var type = Object.keys(layers)[n]            
+            Object.keys(layers).forEach((type=>{           
                     for (var m in layers[type]){
                         var main_info=layers[type][m]
                         if (main_info!=null && main_info!=undefined){
                             var id=main_info.id
-                            var flag = this.state.papersList.includes({'id': id, 'name': main_info.name, 'value': false})
-                            console.log(flag)
+                            var flag = this.state.papersList.includes({'id': id, 'name': main_info.name, 'description': main_info.description, 'value': false})
                             if (flag==false){
-                                this.state.papersList.push({'id': id, 'name': main_info.name, 'value': false})
+                                this.state.papersList.push({'id': id, 'name': main_info.name, 'description': main_info.description, 'value': false})
                                 this.setState(() => {return {firstLoad: true}})
                             }
                         }
                     }
-            }
+            }))
         }
     }
 
     showPaper=(id)=>{
+        console.log(id)
         this.state.papersList.forEach((el)=>{
             if (el.id==id){
                 el.value=true
@@ -70,16 +69,14 @@ class LamminSuoMap extends Component{
         var markers = []
         var active_layers = this.props.active_layers		
         var layers = this.props.layers
-        for(var n in Object.keys(active_layers)){
-            var type = Object.keys(active_layers)[n]
+        Object.keys(active_layers).forEach((type)=>{
             if (active_layers[type]==true){
                 for (var t in station_layers){
                     if (station_layers[t].type_name==type){
                         var custom_icon=station_layers[t].type_icon
                     }
                 }
-                for (var m in layers[type]){
-                    var main_info=layers[type][m]
+                layers[type].forEach((main_info)=>{
                     var coordinates=[main_info.geometry.coordinates[0][1], main_info.geometry.coordinates[0][0]]
                     if (main_info!=null && main_info!=undefined){
                         var one_marker= (<Marker icon={custom_icon} position={coordinates}>
@@ -102,9 +99,9 @@ class LamminSuoMap extends Component{
                                         </Marker>)
                         markers.push(one_marker)
                     }
-                }
+                })
             }
-        }
+        })
         return markers
     }
 
