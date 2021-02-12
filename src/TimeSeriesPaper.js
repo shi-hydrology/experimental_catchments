@@ -5,30 +5,40 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Draggable from 'react-draggable';
+import data from './data/daily.js'
 
 export default function TimeSeriesPaper(props) {
-  
+    console.log(data)
     return (
-        <Draggable handle=".handle" defaultPosition={{x: 400, y: 200}} style={{position: 'relative'}}>
-            <Paper style={{width: '40vw', height: '40vh', padding: '5px 10px'}}>
-                <div className="handle" style={{width:'100%', height:'40px', cursor: 'move', }}>
-                        <Typography variant="body1" component="div" style={{display: 'inline-block', width: '90%'}}>
+        <div >
+            <Draggable handle=".handle" defaultPosition={{ x: 400, y: 200 }} style={{ position: 'relative' }}>
+                <Paper style={{ width: '40vw', height: '40vh', padding: '5px 10px' }}>
+                    <div className="handle" style={{ width: '100%', height: '40px', cursor: 'move', }}>
+                        <Typography variant="body1" component="div" style={{ display: 'inline-block', width: '90%' }}>
                             <b>{props.title}</b>
                         </Typography>
-                    <div style={{width: '10%', justifyContent: 'flex-end', display: 'inline-block'}}>
-                        <IconButton onClick={()=>{props.closePaper(props.id)}}>
-                            <CloseIcon />
-                        </IconButton>
+                        <div style={{ width: '10%', justifyContent: 'flex-end', display: 'inline-block' }}>
+                            <IconButton onClick={() => { props.closePaper(props.id) }}>
+                                <CloseIcon />
+                            </IconButton>
+                        </div>
                     </div>
-                </div>
-                <Divider />
-                <div className="handle" style={{width:'100%'}}>
+                    <Divider />
+                    <div className="handle" style={{ width: '100%' }}>
                         <Typography variant="body1" component="div" >
                             <i>{props.description}</i>
                         </Typography>
-                </div>
-                <Divider />
-            </Paper>
-        </Draggable>
+                    </div>
+                    <Divider />
+                    <br />
+                    <div style={{ width: '100%' }}>
+                        <Typography variant="body2" component="div" >
+                            Измеренный показатель:
+                        </Typography>
+
+                    </div>
+                </Paper>
+            </Draggable>
+        </div>
     );
-  }
+}

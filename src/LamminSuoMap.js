@@ -19,7 +19,6 @@ class LamminSuoMap extends Component{
     
     returnTimeSeriesPaper=()=>{
         var el_list = this.state.papersList.map((el)=>{
-            console.log(el)
             if (el.value==true){
                 return <TimeSeriesPaper closePaper={(id)=>{this.closePaper(id)}} title={el.name} description={el.description} id={el.id}/>
             }
@@ -110,7 +109,7 @@ class LamminSuoMap extends Component{
             this.returnLayersPapers();         
         }
     return(
-            <div>
+            <div >
                 <MapContainer style={{height: '93vh', width: '100%', margin:'0',  display: 'block', zIndex: 0, position: 'absolute'}}  center={[60.24077, 29.81952]} zoom={14}>
                     <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

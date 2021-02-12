@@ -4,6 +4,7 @@ body {
   padding: 0;
   background-image: url(images/background.png);
   background-size: cover;
+  overflow: hidden;
   }
 main {
   display: block; 
