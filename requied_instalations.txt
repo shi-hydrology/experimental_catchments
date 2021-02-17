@@ -4,3 +4,4 @@ npm i react-leaflet
 npm i leaflet
 npm i @material-ui/icons
 npm install react-draggable
+npm install --save react-apexcharts apexcharts

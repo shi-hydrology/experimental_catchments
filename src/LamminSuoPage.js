@@ -44,7 +44,7 @@ export default class LamminSuoPage extends Component{
 			this.parseStationsByType(stations, station_layers)
 		}
 		return(				
-			<div>
+			<div className='body-scroll-hidden'>
 				<Header/>
 				<LamminSuoMap layers={this.state.layers} active_layers={this.state.active_layers}/>
 				<LeftPanel layers={this.state.layers} setCheckedLayers={(type_name, value)=>this.setCheckedLayers(type_name, value)}/>
