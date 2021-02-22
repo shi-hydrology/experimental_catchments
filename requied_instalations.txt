@@ -5,3 +5,8 @@ npm i leaflet
 npm i @material-ui/icons
 npm install react-draggable
 npm install --save react-apexcharts apexcharts
+npm i @date-io/date-fns@1.x date-fns
+npm i @date-io/moment@1.x moment
+npm i -s @date-io/luxon@1.x luxon
+npm i -s @date-io/dayjs@1.x dayjs
+npm i @material-ui/pickers

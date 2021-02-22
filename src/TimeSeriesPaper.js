@@ -5,6 +5,13 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Draggable from 'react-draggable';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -19,7 +26,9 @@ export default function TimeSeriesPaper(props) {
 
     const [state, setState] = React.useState({      
         selectedParameterName: dataKeys[0],
-        selectedParameterData: data[props.id][dataKeys[0]]       
+        selectedParameterData: data[props.id][dataKeys[0]],
+        startDate: new Date('1958-02-01T00:00:00'),
+        startDate: new Date('1958-02-28T00:00:00')    
         });
 
     const setSelectedParameter = (event) => {
@@ -58,19 +67,46 @@ export default function TimeSeriesPaper(props) {
                         </Typography>
                     </div>
                     <Divider />
-                    <br />
-                    <div style={{ width: '100%' }}>
-                        <Typography variant="body2" component="div" >
-                            Измеренный показатель:
-                        </Typography>
-                        <FormControl style={{ width: '50%' }}>
-                            <Select
-                            value={state.selectedParameterName}
-                            onChange={setSelectedParameter}
-                            >
-                            {returnItemsList()}
-                            </Select>
-                        </FormControl>
+                    <div style={{ width: '100%'}}>
+                        <div style={{ width: '40%', display:'inline-block', margin: '12px 0 0 0' }}>
+                            <Typography variant="body2" component="div" >
+                                Измеренный показатель:
+                            </Typography>
+                            <FormControl style={{ width: '100%'}}>
+                                <Select
+                                value={state.selectedParameterName}
+                                onChange={setSelectedParameter}
+                                >
+                                {returnItemsList()}
+                                </Select>
+                            </FormControl>
+                        </div>                           
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker  style={{ width: '30%', display:'inline-block'}}
+                                disableToolbar
+                                variant="inline"
+                                format="MM/dd/yyyy"
+                                margin="normal"
+                                label="Начало периода"
+                                value={state.startDate}
+                                onChange={console.log('dvdsf')}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                                />
+                                <KeyboardDatePicker  style={{ width: '30%', display:'inline-block'}}
+                                disableToolbar
+                                variant="inline"
+                                format="MM/dd/yyyy"
+                                margin="normal"
+                                label="Начало периода"
+                                value={state.startDate}
+                                onChange={console.log('dvdsf')}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                                />
+                            </MuiPickersUtilsProvider> 
                         <TimeSeriesChart name={state.selectedParameterName} data={state.selectedParameterData} lables={data[props.id]['Дата']}/>
                     </div>
                 </Paper>
