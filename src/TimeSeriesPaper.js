@@ -18,28 +18,29 @@ export default function TimeSeriesPaper(props) {
     dataKeys.shift()
 
     const [state, setState] = React.useState({      
-        selectedParameterName: dataKeys[0],        
+        selectedParameterName: dataKeys[0],
+        selectedParameterData: data[props.id][dataKeys[0]]       
         });
 
     const setSelectedParameter = (event) => {
         console.log(event.target)
-        setState({...state, selectedParameterName: event.target.value});
+        var name=event.target.value
+        setState({...state, selectedParameterName: name,
+                            selectedParameterData: data[props.id][name],
+        });
         };
     
     const returnItemsList=()=>{       
-        
         const list = dataKeys.map((key)=>{
             return <MenuItem value={key}>{key}</MenuItem>
         })      
-        
-        
         return list
     }
 
     return (
         <div >
             <Draggable handle=".handle" defaultPosition={{ x: 400, y: 200 }}>
-                <Paper style={{ width: '40vw', height: '600px', padding: '5px 10px' }}>
+                <Paper style={{ width: '40vw', height: '60vh', padding: '5px 10px' }}>
                     <div className="handle" style={{ width: '100%', height: '40px', cursor: 'move', }}>
                         <Typography variant="body1" component="div" style={{ display: 'inline-block', width: '90%' }}>
                             <b>{props.title}</b>
@@ -51,8 +52,8 @@ export default function TimeSeriesPaper(props) {
                         </div>
                     </div>
                     <Divider />
-                    <div className="handle" style={{ width: '100%' }}>
-                        <Typography variant="body1" component="div" >
+                    <div className="handle" style={{ width: '100%'}}>
+                        <Typography variant="body1" component="span" style={{fontSize: '2vh'}}>
                             <i>{props.description}</i>
                         </Typography>
                     </div>
@@ -70,7 +71,7 @@ export default function TimeSeriesPaper(props) {
                             {returnItemsList()}
                             </Select>
                         </FormControl>
-                        <TimeSeriesChart data={data[props.id][state.selectedParameterName]} lables={data[props.id]['Дата']}/>
+                        <TimeSeriesChart name={state.selectedParameterName} data={state.selectedParameterData} lables={data[props.id]['Дата']}/>
                     </div>
                 </Paper>
             </Draggable>

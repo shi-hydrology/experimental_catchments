@@ -46,7 +46,6 @@ class LamminSuoMap extends Component{
     }
 
     showPaper=(id)=>{
-        console.log(id)
         this.state.papersList.forEach((el)=>{
             if (el.id==id){
                 el.value=true
