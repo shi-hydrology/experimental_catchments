@@ -38,12 +38,16 @@ export default class TimeSeriesChart extends Component {
                 type: 'gradient',
                 gradient: {
                 shadeIntensity: 1,
-                inverseColors: true,
-                opacityFrom: 0.5,
-                opacityTo: 0,
+                inverseColors: false,
+                opacityFrom: 0.3,
+                opacityTo: 0.8,
                 stops: [0, 90, 100]
                 },
             },
+            stroke: {
+                width: 2,
+                curve: 'smooth'
+              },
             yaxis: {
                 labels: {
                 formatter: function (val) {
