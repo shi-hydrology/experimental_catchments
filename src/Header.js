@@ -80,13 +80,13 @@ export default function Header(props) {
               ))}
             </Menu>
 
-            <Button wrapped color="inherit" href='https://docs.google.com/document/d/1ypX0_GwKSKtDZJIolB54_Xmwn0wxbII0zEQMkpTd-HU/edit#heading=h.khx6aa9k6ye4' target="_blank">
+            <Button wrapped color="inherit" href={'http://'+ frontend_settings.host+ ':'+frontend_settings.port+'/documentation'}>
               <span style={{ fontSize: '1.7vh' }}>Документация</span>            
             </Button>
-            <Button wrapped color="inherit">
+            <Button wrapped color="inherit" href={'http://'+ frontend_settings.host+ ':'+frontend_settings.port+'/about'}>
               <span style={{ fontSize: '1.7vh' }}>О проекте</span>            
             </Button>       
-            <Button wrapped color="inherit" href='#'>
+            <Button wrapped color="inherit" href={'http://'+ frontend_settings.host+ ':'+frontend_settings.port+'/archive'}>
               <span style={{ fontSize: '1.7vh' }}>Архивные данные</span>
             </Button>
           </div>

@@ -9,6 +9,7 @@ import Link from '@material-ui/core/Link'
 import l_img from "./images/l_img.jpg";
 import b_img from "./images/b_img.jpg";
 
+
 const useStyles = makeStyles({
 	root: {
     maxWidth: 350,

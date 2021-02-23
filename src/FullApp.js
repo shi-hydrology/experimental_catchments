@@ -7,6 +7,9 @@ import './App.css'
 import StartPage from './StartPage.js'
 import LamminSuoPage from './LamminSuoPage.js'
 import BelorussianSwPage from './BelorussianSwPage.js'
+import ArchivePage from './ArchivePage.js'
+import AboutPage from './AboutPage.js'
+import DocumentationPage from './DocumentationPage.js'
 
 export default class FullApp extends Component{
 
@@ -18,6 +21,9 @@ export default class FullApp extends Component{
             <Route exact path="/"  component={StartPage}/>
             <Route path="/lammin_suo/" component={LamminSuoPage}/>
             <Route path="/belorussian/" component={BelorussianSwPage}/>
+            <Route path="/archive/" component={ArchivePage}/>
+            <Route path="/about/" component={AboutPage}/>
+            <Route path="/documentation/" component={DocumentationPage}/>
           </div>
         </Router>
 			</div>
