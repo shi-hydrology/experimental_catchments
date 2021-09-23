@@ -20,15 +20,45 @@ import Select from '@material-ui/core/Select';
 import TimeSeriesChart from './TimeSeriesChart.js'
 import {data} from './data/daily.js'
 
+
+async function fetch_data()
+    {
+
+        // let response = await fetch('http://91.151.178.102:20007/test_for_exp_catch?condition=shockingBlue');
+        let response = await fetch('http://localhost:8080/api/stations', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        // headers: {
+        // 	'Authorization': 'Basic ' + btoa(login+':'+password)
+        // },
+        redirect: 'follow',
+        referrer: 'no-referrer',
+        // body: form,
+    });
+        let dataData = await response.json()
+
+        return dataData
+
+      }
+
+let superduper = fetch_data();
+console.log('SuperDuperResponce\n', superduper)
+
+// let data_test = require('./data/data.json');
+// console.log('Data:\n', data_test[1]);
 export default function TimeSeriesPaper(props) {
+    // console.log('Data:\n', data_test)
     const dataKeys=Object.keys(data[props.id])
     dataKeys.shift()
 
-    const [state, setState] = React.useState({      
+    const [state, setState] = React.useState({
         selectedParameterName: dataKeys[0],
         selectedParameterData: data[props.id][dataKeys[0]],
-        startDate: new Date('1958-02-01T00:00:00'),
-        endDate: new Date('1958-02-28T00:00:00')    
+        startDate: data[props.id]['Дата'][data[props.id]['Дата'].length-28],
+        // endDate: new Date('1958-02-28T00:00:00')
+        endDate: data[props.id]['Дата'][data[props.id]['Дата'].length-1]
         });
 
     const setSelectedParameter = (event) => {
@@ -38,17 +68,18 @@ export default function TimeSeriesPaper(props) {
                             selectedParameterData: data[props.id][name],
         });
         };
-    
-    const returnItemsList=()=>{       
+
+    const returnItemsList=()=>{
         const list = dataKeys.map((key)=>{
             return <MenuItem value={key}>{key}</MenuItem>
-        })      
+        })
         return list
     }
 
     const setStartDate=(date)=>{
         setState({...state, startDate: date});
     }
+
 
     const setEndDate=(date)=>{
         setState({...state, endDate: date});
@@ -88,14 +119,14 @@ export default function TimeSeriesPaper(props) {
                                 {returnItemsList()}
                                 </Select>
                             </FormControl>
-                        </div>                           
+                        </div>
                             <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
                                 <KeyboardDatePicker  style={{ width: '29%', display:'inline-block', marginRight: '10px'}}
                                 disableToolbar
                                 autoOk
                                 disableFuture
                                 variant="inline"
-                                format="MM/dd/yyyy"
+                                format="dd/MM/yyyy"
                                 margin="normal"
                                 label="Начало периода"
                                 value={state.startDate}
@@ -109,7 +140,7 @@ export default function TimeSeriesPaper(props) {
                                 autoOk
                                 disableFuture
                                 variant="inline"
-                                format="MM/dd/yyyy"
+                                format="dd/MM/yyyy"
                                 margin="normal"
                                 label="Конец периода"
                                 value={state.endDate}
@@ -118,8 +149,8 @@ export default function TimeSeriesPaper(props) {
                                     'aria-label': 'change date',
                                 }}
                                 />
-                            </MuiPickersUtilsProvider> 
-                        <TimeSeriesChart name={state.selectedParameterName} data={state.selectedParameterData} lables={data[props.id]['Дата']}/>
+                            </MuiPickersUtilsProvider>
+                        <TimeSeriesChart name={state.selectedParameterName} data={state.selectedParameterData} lables={data[props.id]['Дата']} minDate={setStartDate} maxDate={"1958-02-20"}/>
                     </div>
                 </Paper>
             </Draggable>

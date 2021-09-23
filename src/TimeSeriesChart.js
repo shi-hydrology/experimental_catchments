@@ -4,7 +4,7 @@ import ReactApexChart from "react-apexcharts";
 export default class TimeSeriesChart extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
+        console.log("Props from charts\n\n", props)
     }
     series=(props)=>{
         const list = [{ name: props.name,
@@ -56,7 +56,9 @@ export default class TimeSeriesChart extends Component {
                 },
             },
             xaxis: {
-                categories: props.lables
+                categories: props.lables,
+                min: props.minDate,
+                max: props.maxDate,
             },
             tooltip: {
                 shared: false,
@@ -68,9 +70,9 @@ export default class TimeSeriesChart extends Component {
             }
         }
         return opt
-    }      
+    }
     render() {
-        return (     
+        return (
             <div id="chart" style={{height: '40vh'}}>
                 <ReactApexChart options={this.options(this.props)} series={this.series(this.props)} type="area" height='100%' />
             </div>

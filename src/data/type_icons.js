@@ -2,6 +2,7 @@ import * as L from 'leaflet';
 import meteo_icon from '../images/meteo.png';
 import well_icon from '../images/well.png';
 import pr_gauge_icon from '../images/rainfall.png';
+import ggi_icon from '../images/ggi_cat_icon.png';
 
 const meteoIcon = L.icon({
     iconUrl: meteo_icon,
@@ -24,4 +25,11 @@ const prGaugeIcon = L.icon({
     popupAnchor: [0, 0],
 });
 
-export {meteoIcon, wellIcon, prGaugeIcon}
+const prGGI = L.icon({
+    iconUrl: ggi_icon,
+    iconSize: [45, 45],
+    iconAnchor: [45, 22],
+    popupAnchor: [0, 0],
+});
+
+export {meteoIcon, wellIcon, prGaugeIcon, prGGI}
