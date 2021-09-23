@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Header from './Header.js'
 import DevelopingCard from './DevelopingCard.js'
-import {FetchData} from './DevelopingCard.js'
+// import {FetchData} from './DevelopingCard.js'
 // export default class ArchivePage extends Component{
 // 	render(){
 // 		return(
@@ -13,10 +13,10 @@ import {FetchData} from './DevelopingCard.js'
 // 	}
 // }
 
-let s = FetchData();
-console.log("FFFFFUUUUUUUUUUUUUUU~ \n\n", s)
+// let s = FetchData();
+// console.log("FFFFFUUUUUUUUUUUUUUU~ \n\n", s)
 
-export default class MyComponent extends React.Component {
+export default class ArchivePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
