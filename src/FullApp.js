@@ -10,7 +10,6 @@ import BelorussianSwPage from './BelorussianSwPage.js'
 import ArchivePage from './ArchivePage.js'
 import AboutPage from './AboutPage.js'
 import DocumentationPage from './DocumentationPage.js'
-import TestFuckingPage from './Test.js'
 
 export default class FullApp extends Component{
 
@@ -25,7 +24,6 @@ export default class FullApp extends Component{
             <Route path="/archive/" component={ArchivePage}/>
             <Route path="/about/" component={AboutPage}/>
             <Route path="/documentation/" component={DocumentationPage}/>
-            <Route path="/test/" component={TestFuckingPage}/>
           </div>
         </Router>
 			</div>

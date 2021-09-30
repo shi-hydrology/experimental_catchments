@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
 
-
-import stations from './data/stations.js'
 import station_layers from './data/station_layers.js'
 
 import Header from './Header.js'
 import LeftPanel from './LeftPanel.js'
 import LamminSuoMap from './LamminSuoMap.js'
+import fetchData from "./FetchData.js"
 
 export default class LamminSuoPage extends Component{
 	constructor(props){
-		super(props)		
+		super(props)
 		this.state = {
 			layers: null,
 			layers_parse: false,
 			active_layers: {},
-		}	
+			stations:{},
+		}
 	}
-	
+
 	setCheckedLayers=(type_name, value)=>{
 		var new_active_layers=this.state.active_layers
 		new_active_layers[type_name]=value
@@ -25,13 +25,18 @@ export default class LamminSuoPage extends Component{
 	}
 
 	parseStationsByType=(stations, station_layers)=>{
+		// console.log("Statie : ", stations)
 		var layersDict={}
 		for (var layer in station_layers){
 		  layersDict[station_layers[layer].type_name]=[]
-		  for (var feature in stations.features){
-			if (station_layers[layer].type_name==stations.features[feature].properties.type){
-			  stations.features[feature].properties['geometry']=stations.features[feature].geometry
-			  layersDict[station_layers[layer].type_name].push(stations.features[feature].properties)
+		  for (var feature_id in stations.features){
+			for (var key in stations.features[feature_id].properties.obs_type){
+
+			if (station_layers[layer].type_name==key){
+
+			  stations.features[feature_id].properties['geometry']=stations.features[feature_id].geometry
+			  layersDict[station_layers[layer].type_name].push(stations.features[feature_id].properties)
+				}
 			}
 		  }
 		}
@@ -41,9 +46,11 @@ export default class LamminSuoPage extends Component{
 	render(){
 		document.title='Болото Ламмин-Суо'
 		if (this.state.layers_parse==false){
-			this.parseStationsByType(stations, station_layers)
+			fetchData().then(data => (this.parseStationsByType(data, station_layers)))
+
 		}
-		return(				
+
+		return(
 			<div className='body-scroll-hidden'>
 				<Header/>
 				<LamminSuoMap layers={this.state.layers} active_layers={this.state.active_layers}/>

@@ -21,52 +21,9 @@ import TimeSeriesChart from './TimeSeriesChart.js'
 import {data} from './data/daily.js'
 
 
-async function fetch_data()
-    {
 
-        // let response = await fetch('http://91.151.178.102:20007/test_for_exp_catch?condition=shockingBlue');
-        let response = await fetch('http://localhost:8080/test', {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        // headers: {
-        // 	'Authorization': 'Basic ' + btoa(login+':'+password)
-        // },
-        redirect: 'follow',
-        referrer: 'no-referrer',
-        // body: form,
-    });
-        let dataData = await response.json()
-
-        return dataData
-
-      }
-
-export function FetchData() {
-    return fetch('http://localhost:8080/test', {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-        })
-        .then((response) => response.json())
-        .then((responseData) => {
-            console.log(responseData);
-            return responseData;
-        })
-        .catch(error => console.warn(error));
-}
-
-
-let superduper = FetchData();
-console.log('SuperDuperResponce\n', superduper)
-
-// let data_test = require('./data/data.json');
-// console.log('Data:\n', data_test[1]);
 export default function TimeSeriesPaper(props) {
-    console.log('11111:\n', superduper.id)
+
     const dataKeys=Object.keys(data[props.id])
     dataKeys.shift()
 

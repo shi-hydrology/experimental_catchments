@@ -19,29 +19,6 @@ const useStyles = makeStyles({
   });
 
 
-  // export function FetchData(){
-  //   return fetch('http://localhost:8080/test',
-  //   {
-  //   	method: "GET",
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //   .then((response) => response.json())
-  //   .then((responseData) => {
-  //     console.log(responseData);
-  //     return responseData;
-  //   })
-  //   .catch(error => console.warn(error));
-  // }
-  //
-  //
-  // let superduper = FetchData();
-  // console.log('SuperDuperResponce\n', superduper)
-
-
-
   export default function DevelopingCard() {
     const classes = useStyles();
 

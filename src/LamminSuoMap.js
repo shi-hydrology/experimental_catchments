@@ -34,11 +34,12 @@ class LamminSuoMap extends Component{
                         var main_info=layers[type][m]
                         if (main_info!=null && main_info!==undefined){
                             var id=main_info.id
-                            var flag = this.state.papersList.includes({'id': id, 'name': main_info.name, 'description': main_info.description, 'value': false})
+                            var flag = this.state.papersList.includes({'id': id, 'name': main_info.name, 'value': false})
                             if (flag===false){
-                                this.state.papersList.push({'id': id, 'name': main_info.name, 'description': main_info.description, 'value': false})
+                                this.state.papersList.push({'id': id, 'name': main_info.name, 'value': false})
                                 this.setState(() => {return {firstLoad: true}})
                             }
+
                         }
                     }
             }))
@@ -67,6 +68,7 @@ class LamminSuoMap extends Component{
         var markers = []
         var active_layers = this.props.active_layers
         var layers = this.props.layers
+
         Object.keys(active_layers).forEach((type)=>{
             if (active_layers[type]===true){
                 for (var t in station_layers){
@@ -75,7 +77,7 @@ class LamminSuoMap extends Component{
                     }
                 }
                 layers[type].forEach((main_info)=>{
-                    var coordinates=[main_info.geometry.coordinates[0][1], main_info.geometry.coordinates[0][0]]
+                    var coordinates=[main_info.geometry.coordinates[1], main_info.geometry.coordinates[0]]
                     if (main_info!=null && main_info!==undefined){
                         var one_marker= (<Marker icon={custom_icon} position={coordinates}>
                                             <Tooltip direction="right">
@@ -86,7 +88,7 @@ class LamminSuoMap extends Component{
                                                 <br/>
                                                 <Divider />
                                                 <br/>
-                                                {main_info.description}
+                                                {main_info.meta}
                                                 <div style={{width: '100%', justifyContent:'center', textAlign:'center'}}>
                                                     <br/>
                                                     <Button size="small" variant="contained" color="inherit" onClick={()=>this.showPaper(main_info.id)}>
