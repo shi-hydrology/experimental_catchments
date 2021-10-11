@@ -46,7 +46,7 @@ export default class LamminSuoPage extends Component{
 	render(){
 		document.title='Болото Ламмин-Суо'
 		if (this.state.layers_parse==false){
-			fetchData().then(data => (this.parseStationsByType(data, station_layers)))
+			fetchData("http://localhost:8080/api/sites?station_id=1").then(data => (this.parseStationsByType(data, station_layers)))
 
 		}
 
